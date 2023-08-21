@@ -1,8 +1,15 @@
-document.getElementById("capture-btn").addEventListener("click", () => {
+document.getElementById("capture-btn").addEventListener("click", () => { //capture, download and send to app engine
     chrome.runtime.sendMessage({ action: "captureAndDownload" });
   });
   
-  // GCP Dataflow로 전송하는 기능을 구현할 경우 주석을 해제하십시오.
-  // document.getElementById('send-btn').addEventListener('click', () => {
-  //   chrome.runtime.sendMessage({ action: 'captureAndSendToDataflow' });
-  // });
+  chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+    if (message.action === "getImageUrl") {
+      const filePath = message.filePath;
+      const url = URL.createObjectURL({ file: filePath });
+  
+      const imgElement = document.querySelector("#captured-image");
+      imgElement.src = url;
+  
+      sendResponse({ status: "success" });
+    }
+  });
