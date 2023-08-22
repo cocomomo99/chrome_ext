@@ -16,11 +16,10 @@ document.getElementById("capture-btn").addEventListener("click", () => {   // �
     if (message.action === "setServerResponse") {
       const serverResponse = message.serverResponse;
   
-      // 서버 응답을 JSON 형식의 문자열로 변환하여 결과를 출력합니다
-      const responseString = JSON.stringify(serverResponse, null, 2);
-      const responseElement = document.querySelector("#response");
-      responseElement.textContent = responseString;
-      responseElement.style.display = "block";
+      // 서버 응답 결과를 출력합니다
+    const responseElement = document.querySelector("#response");
+    responseElement.textContent = serverResponse;
+    responseElement.style.display = "block";
   
       sendResponse({ status: "success" });
     }

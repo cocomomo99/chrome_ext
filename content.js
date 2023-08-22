@@ -36,20 +36,24 @@ async function sendImageToServer(blob) {
       console.log("이미지 전송 성공");
       const jsonResponse = await response.json(); // JSON 형식으로 변경
       const results = jsonResponse.results; // "results" 항목 추출
+      console.log(`서버 응답 내용: ${JSON.stringify(results)}`);
+      
+      let result_2return = '';
+      results.forEach((item) => {
+              result_2return += '상품이름: ' + item.title + '\n';
+              result_2return += '링크 : ' + item.link + '\n';
+              result_2return += '가격 : ' + item.price.value + '\n';
+              result_2return += 'thumbnail: ' + item.thumbnail + '\n\n';
+      });
+      console.log(result_2return)
       
     // response result 표시
     chrome.runtime.sendMessage({
       action: "setServerResponse",
-      serverResponse: results, // 서버 응답 결과를 전달합니다
+      serverResponse: result_2return, // 서버 응답 결과를 전달합니다
     });
 
-      // 배열에서 원하는 속성만 추출
-      // const links = results[0].visual_matches.map(match => match.link);
-      // 결과 출력
-      // console.log(links);
-
-
-      console.log(`서버 응답 내용: ${JSON.stringify(results)}`);
+      
     } else {
       console.error(`이미지 전송 실패: ${response.status} ${response.statusText}`);
     }

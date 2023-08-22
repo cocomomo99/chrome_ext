@@ -47,8 +47,8 @@ xa" crossorigin="anonymous">
     #image {
         background-color: #fff;
         border: 1px solid #ccc;
-        margin-bottom: 2rem;
-        padding: 0.2rem;
+        margin-bottom: 0.5rem;
+        padding: 0.5rem;
     }
 
     /* 이미지 */
@@ -57,11 +57,11 @@ xa" crossorigin="anonymous">
     }
     
     /* 출력 wrapper */
-    #출력 {
+    #항목 {
         background-color: #fff;
-        border: 1px solid #bfe0ff;
-        padding: 0.5rem;
-        margin-bottom: 0.5rem;
+        border: 3px solid #bfe0ff;
+        padding: 0.2rem;
+        margin-bottom: 0.2rem;
     }
     
     /* 검색결과 wrapper */
@@ -78,7 +78,7 @@ xa" crossorigin="anonymous">
 <h1>ClothSearch</h1>
 <hr/>
 <button id="capture-btn">캡처 & 다운로드</button>
-<div id="캡쳐된 이미지">
+<div id = "항목">
     <h2>캡쳐된 이미지</h2>
 </div>
 
@@ -86,7 +86,7 @@ xa" crossorigin="anonymous">
     <img id="captured-image" width="100%" style="display: none"/>
 </div>
 
-<div id = "출력">
+<div id = "항목">
     <h2>검색결과</h2>
 </div>
 
@@ -94,6 +94,10 @@ xa" crossorigin="anonymous">
   <pre id="response" style="display: none"></pre>
 </div>
 
+<div id="thumbnail">
+    <pre id="thumbnail"></pre>
+
+</div>
 <script src="sidepanel.js"></script>
 <script src="content.js"></script>
 <script async src="https://cse.google.com/cse.js?cx=501e668c96da84d9d">
