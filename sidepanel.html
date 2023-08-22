@@ -1,29 +1,103 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="UTF-8">
-    <title>ClothSearch</title>
-    <style>
-      button {
-        width: 100%;
-        padding: 10px;
-      }
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704Spn9W6WksVsqvpd8yR03+XYnUoGkD1QFw
+xa" crossorigin="anonymous">
+<!-- Custom CSS -->
+<style>
+    /* 전체 body */
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f8f8f8;
+    }
+    
+    /* page wrapper */
+    .page-wrapper {
+        margin: 0 auto;
+        max-width: 800px;
+        padding: 20px;
+    }
+
+    /* 제목 */
+    h1 {
+        font-size: 2rem;
+    }
+    
+    /* hr 수평선 */
+    hr {
+        margin: 1rem 0;
+        border-color: #eeeeee;
+    }
+    
+    /* 캡처 & 다운로드 버튼 */
+    button {
+        background-color: #3F51B5;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        font-size: 1.2rem;
+        padding: 1rem;
+        margin-bottom: 2rem;
+        cursor: pointer;
+    }
+    
+    /* 이미지 wrapper */
+    #image {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        margin-bottom: 2rem;
+        padding: 0.2rem;
+    }
+
+    /* 이미지 */
+    #captured-image {
+        max-width: 100%;
+    }
+    
+    /* 출력 wrapper */
+    #출력 {
+        background-color: #fff;
+        border: 1px solid #bfe0ff;
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    /* 검색결과 wrapper */
+    #response {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+</style>
     </style>
-  </head>
-  <body>
-    <h1>ClothSearch</h1>
-    <hr />
-    <button id="capture-btn">캡처 & 다운로드</button>
-    <div id="side-panel">
-      <h2>캡쳐된 이미지</h2>
-    </div>
-    <body>
-        <img id="captured-image" width="310"/>
-    </body>
-    </div>
-    <div>
-    </div>
-    <script src="sidepanel.js"></script>
-    <script src="content.js"></script>
-  </body>
+</head>
+<body style="word-wrap: break-word; background-color: rgb(171, 201, 255) ;">
+<h1>ClothSearch</h1>
+<hr/>
+<button id="capture-btn">캡처 & 다운로드</button>
+<div id="캡쳐된 이미지">
+    <h2>캡쳐된 이미지</h2>
+</div>
+
+<div id="image">
+    <img id="captured-image" width="100%" style="display: none"/>
+</div>
+
+<div id = "출력">
+    <h2>검색결과</h2>
+</div>
+
+<div id="response">
+  <pre id="response" style="display: none"></pre>
+</div>
+
+<script src="sidepanel.js"></script>
+<script src="content.js"></script>
+<script async src="https://cse.google.com/cse.js?cx=501e668c96da84d9d">
+</script>
+<div class="gcse-search"></div>
+</body>
 </html>

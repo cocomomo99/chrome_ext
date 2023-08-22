@@ -1,7 +1,6 @@
 {
   "name": "chrome_ext",
   "version": "1.0.0",
-  "description": "",
   "main": "background.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,5 +12,6 @@
     "@google-cloud/vision": "^4.0.1",
     "capture-video-frame": "^1.0.0",
     "google-vision-api-client": "^0.0.3"
-  }
+  },
+  "description": ""
 }

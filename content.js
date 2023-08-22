@@ -35,17 +35,29 @@ async function sendImageToServer(blob) {
     if (response.ok) {
       console.log("이미지 전송 성공");
       const jsonResponse = await response.json(); // JSON 형식으로 변경
-      const results = jsonResponse.results // 'results' 항목 추출
-      const link = results.link; // "link" 항목 추출
+      const results = jsonResponse.results; // "results" 항목 추출
+      
+    // response result 표시
+    chrome.runtime.sendMessage({
+      action: "setServerResponse",
+      serverResponse: results, // 서버 응답 결과를 전달합니다
+    });
+
+      // 배열에서 원하는 속성만 추출
+      // const links = results[0].visual_matches.map(match => match.link);
+      // 결과 출력
+      // console.log(links);
+
+
       console.log(`서버 응답 내용: ${JSON.stringify(results)}`);
-      console.log(`searched link: ${JSON.stringify(link)}`);
     } else {
       console.error(`이미지 전송 실패: ${response.status} ${response.statusText}`);
     }
   } catch (error) {
-    console.error(`서버에 이미지 전송 중 오류 발생: ${error}`);
+    console.error(`이미지에서 옷을 찾을수없습니다.: ${error}`);
   }
 }
+
 
 function dataURItoBlob(dataURI) { //Base64 인코딩된 이미지 데이터를 Blob 객체로 변환하여 반환
   const byteString = atob(dataURI.split(",")[1]);
@@ -65,17 +77,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       const blob = dataURItoBlob(dataUri);
       sendImageToServer(blob);
 
-      const imageElement = document.querySelector("#captured-image"); //부모 요소 찾기
-      if (imageElement) {//부모 요소가 존재하는 경우
-        const imageElement = document.createElement("img"); //이미지 요소 생성
-        imageElement.src = dataUri;//이미지 데이터 할당
-        imageElement.id = "captured-image"; //아이디값 추가
-        parentElement.appendChild(imageElement); //부모요소에 이미지 요소 추가
-      } else {
-        console.log("No element with captured-image ID found.");
-      }
-
-      sendImageToServer(dataUri);
+    // 캡쳐된 이미지 표시
+    chrome.runtime.sendMessage({
+      action: "setImageUri",
+      imageUrl: dataUri,
+    });    
+    
+    sendImageToServer(dataUri);
+      
       downloadImage(dataUri, "screenshot.jpeg");
       sendResponse({ success: true });
     } catch (error) {
