@@ -1,9 +1,9 @@
 {
     "manifest_version": 3,
-    "name": "YouTube Screen Capture",
-    "version": "1.0",
+    "name": "비디옷",
+    "version": "3.0",
     "action": {
-      "default_title": "Click to open panel",
+      "default_title": "비디옷을 열려면 클릭하세요",
       "default_icon": {
         "16": "images/icon16.png",
         "48": "images/icon48.png",

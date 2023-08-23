@@ -19,7 +19,7 @@ function downloadImage(dataUri, fileName) {
 }
 
 // 이미지 데이터 전송 함수
-const serverUrl="https://jnu-idv-03.du.r.appspot.com/detect_clothing" // image=@jpg
+const serverUrl="https://jnu-idv-03.du.r.appspot.com/predict" // image=@jpg
 
 async function sendImageToServer(blob) { 
   const formData = new FormData();
@@ -36,14 +36,12 @@ async function sendImageToServer(blob) {
       console.log("이미지 전송 성공");
       const jsonResponse = await response.json(); // JSON 형식으로 변경
       const results = jsonResponse.results; // "results" 항목 추출
-      console.log(`서버 응답 내용: ${JSON.stringify(results)}`);
+      console.log(`서버 응답 내용: ${results}`);
       
-      let result_2return = '';
+      let result_2return = [];
       results.forEach((item) => {
-              result_2return += '상품이름: ' + item.title + '\n';
-              result_2return += '링크 : ' + item.link + '\n';
-              result_2return += '가격 : ' + item.price.value + '\n';
-              result_2return += 'thumbnail: ' + item.thumbnail + '\n\n';
+                let thumbnailURL = item.thumbnail;
+                result_2return.push({title: item.title, link: item.link, price: item.price.value, thumbnail: thumbnailURL})
       });
       console.log(result_2return)
       
@@ -78,6 +76,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "captureAndDownload") {
     try {
       const dataUri = captureImage();
+      downloadImage(dataUri, "screenshot.jpeg"); // 이미지 다운로드
       const blob = dataURItoBlob(dataUri);
       sendImageToServer(blob);
 
@@ -85,12 +84,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     chrome.runtime.sendMessage({
       action: "setImageUri",
       imageUrl: dataUri,
-    });    
-    
-    sendImageToServer(dataUri);
+    });   
       
-      downloadImage(dataUri, "screenshot.jpeg");
-      sendResponse({ success: true });
+
+    sendResponse({ success: true });
     } catch (error) {
       console.error("Failed to capture image", error);
       sendResponse({ success: false });
