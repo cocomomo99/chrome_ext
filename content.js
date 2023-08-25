@@ -24,7 +24,9 @@ const serverUrl="https://jnu-idv-03.du.r.appspot.com/predict" // app-engine url
 
 async function sendImageToServer(blob) { 
   const formData = new FormData();
-  formData.append("image", blob, "image.jpeg");
+  let date = new Date();
+  let fileName = "image_" + date.getTime() + ".jpeg";
+  formData.append("image", blob, fileName);
 
   try {
     const response = await fetch(serverUrl, {
