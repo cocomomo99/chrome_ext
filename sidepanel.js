@@ -15,15 +15,17 @@ document.getElementById("capture-btn").addEventListener("click", () => {   // �
     }
 
     function initialize() {
-      // container 요소 초기화
       const container = document.getElementById('container');
-      container.innerHTML = '';
+      if (container) {
+        container.innerHTML = '';
+      }
     }
   
   if(message.action == 'setServerResponse'){
     const serverResponse = message.serverResponse;
 
     // UI 엘리먼트 생성 및 추가
+    initialize();
     const container = document.getElementById('container');
     const list = document.createElement('ul');
 

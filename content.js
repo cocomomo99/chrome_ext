@@ -19,7 +19,8 @@ function downloadImage(dataUri, fileName) {
 }
 
 // 이미지 데이터 전송 함수
-const serverUrl="https://jnu-idv-03.du.r.appspot.com/predict" // image=@jpg
+const serverUrl="https://jnu-idv-03.du.r.appspot.com/predict" // app-engine url
+// const serverUrl="https://cloud-run-3p2err6u5q-uc.a.run.app/predict" // cloud-run url
 
 async function sendImageToServer(blob) { 
   const formData = new FormData();
@@ -38,6 +39,7 @@ async function sendImageToServer(blob) {
       const results = jsonResponse.results; // "results" 항목 추출
       console.log(`서버 응답 내용: ${results}`);
       
+      
       let result_2return = [];
       results.forEach((item) => {
                 let thumbnailURL = item.thumbnail;
@@ -51,7 +53,7 @@ async function sendImageToServer(blob) {
       serverResponse: result_2return, // 서버 응답 결과를 전달합니다
     });
 
-      
+    
     } else {
       console.error(`이미지 전송 실패: ${response.status} ${response.statusText}`);
     }
@@ -76,16 +78,15 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "captureAndDownload") {
     try {
       const dataUri = captureImage();
-      downloadImage(dataUri, "screenshot.jpeg"); // 이미지 다운로드
+
+      chrome.runtime.sendMessage({ // 캡쳐된 이미지 표시
+        action: "setImageUri",
+        imageUrl: dataUri,
+      });
+
+      // downloadImage(dataUri, "screenshot.jpeg"); // 이미지 다운로드
       const blob = dataURItoBlob(dataUri);
       sendImageToServer(blob);
-
-    // 캡쳐된 이미지 표시
-    chrome.runtime.sendMessage({
-      action: "setImageUri",
-      imageUrl: dataUri,
-    });   
-      
 
     sendResponse({ success: true });
     } catch (error) {
