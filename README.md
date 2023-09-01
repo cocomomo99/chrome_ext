@@ -7,3 +7,4 @@ google cloud platform을 사용한 유튜브 비디오를 캡쳐하고, 캡쳐�
 
 https://github.com/cocomomo99/chrome_ext/assets/110728901/7a9b11ea-6b53-4bb5-b3ad-b2187be12524
 
+[비디옷.pdf](https://github.com/cocomomo99/fashion-finder--/files/12495981/default.pdf)
